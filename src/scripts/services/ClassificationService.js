@@ -25,7 +25,7 @@ class ClassificationService {
                 const formData = new FormData();
                 formData.append('file', blob, 'image.jpg');
 
-                const response = await fetch(`${API_BASE_URL}/predict`, {
+                const response = await fetch(`${API_BASE_URL}predict`, {
                     method: 'POST',
                     body: formData,
                 });
