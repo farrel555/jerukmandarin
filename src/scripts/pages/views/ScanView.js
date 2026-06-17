@@ -14,8 +14,7 @@ class ScanView extends BaseView {
             <div class="card scan-card">
                 <div class="page-specific-header">
                     <div class="page-header-logo"><i class="fas fa-recycle"></i> Jeruk Mandarin</div>
-                    <div class="page-header-title">Scan Jeruk Mandarin
-                    h</div>
+                    <div class="page-header-title">Scan Jeruk Mandarin</div>
                 </div>
                 <h2>Pilih gambar Jeruk untuk di-scan</h2>
                 <div class="scan-option" id="camera-option">

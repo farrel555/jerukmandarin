@@ -1,17 +1,16 @@
 // src/scripts/pages/presenters/ScanPresenter.js
 
-// DIHAPUS: HistoryService tidak lagi diperlukan di sini
-// import HistoryService from '../../services/HistoryService';
-
-// HANYA ClassificationService yang kita butuhkan
 import ClassificationService from '../../services/ClassificationService';
 
 class ScanPresenter {
+    // recommendationView tetap dipertahankan agar tidak merusak struktur router bawaan,
+    // meskipun nanti fungsinya bisa disesuaikan untuk saran penanganan jeruk.
     constructor(scanView, classificationView, recommendationView, appRouter) {
         this.scanView = scanView;
         this.classificationView = classificationView;
         this.recommendationView = recommendationView;
         this.appRouter = appRouter;
+        
         this.scanView.presenter = this;
         this.classificationView.presenter = this;
     }
@@ -26,12 +25,12 @@ class ScanPresenter {
 
         reader.onload = (event) => {
             const imageSrc = event.target.result;
-            // Langsung panggil metode klasifikasi dan tampilkan hasilnya
+            // Panggil metode klasifikasi YOLOv11
             this.classifyAndShowResult(imageSrc); 
         };
 
         reader.onerror = () => {
-            this.classificationView.showError("Gagal memuat file gambar.");
+            this.classificationView.showError("Gagal memuat file gambar jeruk.");
         };
 
         reader.readAsDataURL(file);
@@ -39,28 +38,27 @@ class ScanPresenter {
 
     async classifyAndShowResult(imageSrc) {
         try {
-            // 1. Tampilkan halaman loading terlebih dahulu
+            // 1. Tampilkan indikator loading saat gambar dikirim ke Fly.io
             this.classificationView.showLoading();
             this.appRouter.navigateTo('classification');
 
-            // 2. Kirim gambar ke backend FastAPI untuk diprediksi
+            // 2. Kirim gambar ke backend FastAPI
             const result = await ClassificationService.classifyImage(imageSrc);
 
-            if (result && result.wasteType) {
-                // Backend FastAPI sekarang juga bisa kita program untuk
-                // otomatis menyimpan riwayat setelah prediksi berhasil.
-                // Jadi, frontend tidak perlu lagi memanggil saveHistory secara terpisah.
-                console.log('Klasifikasi berhasil dan riwayat otomatis disimpan di backend.');
+            // 3. Validasi berdasarkan format respons FastAPI dari YOLOv11
+            // Respons yang diharapkan: { status: "success", label: "Matang", confidence_score: 0.95 }
+            if (result && result.status === "success" && result.label) {
+                console.log('Deteksi kematangan jeruk berhasil diproses di cloud.');
 
-                // 3. Tampilkan hasil klasifikasi di view
-                this.classificationView.render(imageSrc, result.wasteType);
+                // 4. Kirim gambar, label hasil, dan nilai konfidensi ke View untuk dirender
+                this.classificationView.render(imageSrc, result.label, result.confidence_score);
 
             } else {
-                throw new Error('Hasil klasifikasi tidak valid dari API.');
+                throw new Error(result.message || 'Hasil deteksi tidak valid dari API.');
             }
         } catch (error) {
-            console.error('Error during classification:', error);
-            this.classificationView.showError(error.message || 'Gagal mengklasifikasi gambar.');
+            console.error('Error saat melakukan deteksi:', error);
+            this.classificationView.showError(error.message || 'Gagal mendeteksi tingkat kematangan jeruk.');
         }
     }
 }
