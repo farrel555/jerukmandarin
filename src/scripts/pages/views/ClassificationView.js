@@ -11,50 +11,50 @@ class ClassificationView extends BaseView {
     /**
      * Metode utama untuk menampilkan hasil klasifikasi yang berhasil.
      * @param {string} imageSrc - Sumber gambar yang di-scan (data URL).
-     * @param {string} wasteType - Jenis sampah hasil klasifikasi (misal, 'Organik').
+     * @param {string} label - Tingkat kematangan hasil klasifikasi (misal, 'Matang').
+     * @param {number} confidenceScore - Nilai akurasi prediksi YOLOv11 (0.0 - 1.0).
      */
-    render(imageSrc, wasteType) {
+    render(imageSrc, label, confidenceScore = 0) {
         // Pengecekan Pengaman
-        if (!imageSrc || !wasteType) {
+        if (!imageSrc || !label) {
             this.showLoading();
             return;
         }
 
-        // Simpan wasteType untuk digunakan di tombol navigasi submenu
-        this.latestWasteType = wasteType;
-
         let recommendationText = 'Informasi lebih lanjut tidak tersedia.';
-        switch (wasteType.toLowerCase()) {
-            case 'organik':
-                recommendationText = 'Sampah ini dapat diolah menjadi kompos atau pakan ternak.';
+        
+        // Penyesuaian saran berdasarkan tingkat kematangan jeruk
+        switch (label.toLowerCase()) {
+            case 'matang':
+                recommendationText = 'Jeruk sudah matang sempurna, memiliki rasa manis optimal, dan siap untuk dipanen atau didistribusikan.';
                 break;
-            case 'non_organik':
-            case 'anorganik':
-                recommendationText = 'Dapat didaur ulang. Pisahkan dan setorkan ke bank sampah.';
+            case 'setengah matang':
+                recommendationText = 'Jeruk masih setengah matang. Disarankan untuk menunggu beberapa waktu lagi sebelum dipanen agar tingkat keasamannya menurun.';
                 break;
-            case 'b3':
-                recommendationText = 'Berbahaya! Buang ke fasilitas penampungan limbah B3 khusus.';
+            case 'mentah':
+                recommendationText = 'Jeruk masih mentah dan belum siap dipanen. Biarkan tetap di pohon untuk proses pematangan alami.';
                 break;
-            case 'residu':
-                recommendationText = 'Buang ke tempat sampah sebagai pilihan terakhir.';
+            case 'tidak ada jeruk terdeteksi':
+                recommendationText = 'Sistem tidak menemukan buah jeruk pada gambar ini. Pastikan kamera menyorot buah dengan jelas.';
                 break;
         }
+
+        // Konversi skor ke format persentase yang mudah dibaca
+        const persentaseAkurasi = (confidenceScore * 100).toFixed(2);
 
         this.container.innerHTML = `
             <div class="card classification-card">
                 <div class="page-specific-header">
-                    <div class="page-header-logo"><i class="fas fa-check-circle"></i> Hasil Klasifikasi</div>
+                    <div class="page-header-logo"><i class="fas fa-check-circle"></i> Hasil Deteksi</div>
                 </div>
-                <h2>Hasil Scan Ditemukan</h2>
+                <h2>Analisis YOLOv11 Selesai</h2>
                 <div class="classification-result">
-                    <img src="${imageSrc}" alt="Gambar yang di-scan">
-                    <p>Jenis Sampah: <strong>${wasteType.charAt(0).toUpperCase() + wasteType.slice(1)}</strong></p>
-                    <p class="recommendation-text">${recommendationText}</p>
+                    <img src="${imageSrc}" alt="Gambar objek yang dideteksi">
+                    <p>Tingkat Kematangan: <strong style="font-size: 1.2em; color: #ff8c00;">${label.toUpperCase()}</strong></p>
+                    <p>Confidence Score: <strong>${persentaseAkurasi}%</strong></p>
+                    <p class="recommendation-text" style="margin-top: 10px; font-style: italic;">${recommendationText}</p>
                 </div>
-                <button class="btn" id="scan-again-btn">Scan Lagi</button>
-                <button class="btn btn-submenu" id="go-submenu-btn">
-                    Lihat produk kreatif ${wasteType.charAt(0).toUpperCase() + wasteType.slice(1)}
-                </button>
+                <button class="btn" id="scan-again-btn" style="margin-top: 20px;">Scan Gambar Lain</button>
             </div>
         `;
 
@@ -65,10 +65,10 @@ class ClassificationView extends BaseView {
         this.container.innerHTML = `
             <div class="card classification-card">
                 <div class="page-specific-header">
-                    <div class="page-header-logo"><i class="fas fa-spinner fa-spin"></i> Menganalisis</div>
+                    <div class="page-header-logo"><i class="fas fa-spinner fa-spin"></i> Memproses Cloud</div>
                 </div>
                 <h2>Menganalisis Gambar...</h2>
-                <p>Harap tunggu, sistem kami sedang mengidentifikasi jenis sampah.</p>
+                <p>Harap tunggu, model YOLOv11 sedang mengkalkulasi tingkat kematangan jeruk.</p>
             </div>
         `;
     }
@@ -79,7 +79,7 @@ class ClassificationView extends BaseView {
                 <div class="page-specific-header">
                     <div class="page-header-logo"><i class="fas fa-exclamation-triangle"></i> Terjadi Error</div>
                 </div>
-                <h2>Oops! Terjadi Kesalahan</h2>
+                <h2>Oops! Deteksi Gagal</h2>
                 <p>${message}</p>
                 <button class="btn" id="scan-again-btn">Coba Scan Lagi</button>
             </div>
@@ -96,15 +96,6 @@ class ClassificationView extends BaseView {
             });
         }
 
-        // Tombol "Lihat Info Sampah..."
-        const infoButton = this.container.querySelector('#go-submenu-btn');
-        if (infoButton && this.presenter && this.presenter.appRouter && this.latestWasteType) {
-            this.bind('click', '#go-submenu-btn', () => {
-                const type = this.latestWasteType.toLowerCase();
-                const route = type === 'organik' ? 'creative/organik' : 'creative/nonorganik';
-                this.presenter.appRouter.navigateTo(route);
-            });
-        }
     }
 }
 
