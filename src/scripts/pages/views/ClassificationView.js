@@ -87,15 +87,19 @@ class ClassificationView extends BaseView {
         this.bindEvents();
     }
 
-    bindEvents() {
-        // Tombol "Scan Lagi"
-        const scanAgainButton = this.container.querySelector('#scan-again-btn');
-        if (scanAgainButton && this.presenter && this.presenter.appRouter) {
-            this.bind('click', '#scan-again-btn', () => {
-                this.presenter.appRouter.navigateTo('scan');
-            });
-        }
-
+        bindEvents() {
+                // Tombol "Scan Lagi"
+                const scanAgainButton = this.container.querySelector('#scan-again-btn');
+                if (scanAgainButton) {
+                    this.bind('click', '#scan-again-btn', () => {
+                        // Trik Jam 3 Pagi: Paksa rute ke halaman scan
+                        window.location.hash = '#scan';
+                        
+                        // Lakukan pembersihan memori DOM dengan refresh halaman secara otomatis
+                        // Ini meniru persis apa yang kamu lakukan secara manual, tapi terlihat instan!
+                        window.location.reload();
+                    });
+                }
     }
 }
 
