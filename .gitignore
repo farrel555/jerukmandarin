@@ -1,6 +1,6 @@
 # Dependencies
 /node_modules
-/smartwaste-api
+/jerukmandarin-api
 # Build output
 /dist
 /build
