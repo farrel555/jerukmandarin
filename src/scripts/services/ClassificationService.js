@@ -1,6 +1,6 @@
 // src/scripts/services/ClassificationService.js
 
-const API_BASE_URL = 'https://smartwaste-api.fly.dev';
+const API_BASE_URL = 'https://jerukmandarin-api.fly.dev/';
 
 class ClassificationService {
     /**
