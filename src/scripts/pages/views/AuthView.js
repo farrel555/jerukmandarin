@@ -11,7 +11,7 @@ class AuthView extends BaseView {
         this.container.innerHTML = `
             <div class="card auth-card">
                 <h2>Selamat Datang!</h2>
-                <p>Silakan masuk atau daftar untuk mengakses semua fitur pengelolaan sampah cerdas.</p>
+                <p>Silakan masuk atau daftar untuk mengakses fitur deteksi jeruk</p>
                 <div class="auth-action">
                     <button class="btn" id="auth-action-btn">
                         <i class="fas fa-sign-in-alt"></i> Masuk / Daftar
