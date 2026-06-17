@@ -46,26 +46,19 @@ class AppRouter {
             <header class="app-header">
                 <div class="header-left-content">
                     <button id="menu-toggle-btn" class="menu-button"><i class="fas fa-bars"></i></button>
-                    <div class="app-logo-text"><i class="fas fa-recycle"></i> SmartWaste</div>
+                    <div class="app-logo-text"><i class="fas fa-recycle"></i> JerukMandarin</div>
                 </div>
                 <div class="header-right-content"></div>
             </header>
             <div id="side-menu" class="side-menu">
                 <div class="menu-header">
-                    <div class="logo-text"><i class="fas fa-recycle"></i> SmartWaste</div>
+                    <div class="logo-text"><i class="fas fa-recycle"></i> JerukMandarin</div>
                     <button id="menu-close-btn" class="menu-button"><i class="fas fa-times"></i></button>
                 </div>
                 <ul class="menu-items">
                     <li data-route="dashboard"><i class="fas fa-chart-line"></i> Dashboard</li>
-                    <li data-route="scan"><i class="fas fa-camera"></i> Scan Sampah</li>
+                    <li data-route="scan"><i class="fas fa-camera"></i> Scan Jeruk</li>
                     
-                    <li class="has-submenu">
-                        <a href="#" class="menu-toggle-submenu"><i class="fas fa-lightbulb"></i> Produk Kreatif <i class="fas fa-chevron-down submenu-arrow"></i></a>
-                        <ul class="submenu">
-                            <li data-route="creative/organik">Organik</li>
-                            <li data-route="creative/nonorganik">Non-Organik</li>
-                        </ul>
-                    </li>
 
                     <li data-route="history"><i class="fas fa-history"></i> Riwayat Scan</li>
                     <li id="logout-menu-item"><i class="fas fa-sign-out-alt"></i> Logout</li>

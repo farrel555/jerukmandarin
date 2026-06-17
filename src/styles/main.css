@@ -19,7 +19,7 @@ body {
 
 /* Global App Header Styling */
 .app-header {
-    background-color: #4CAF50;
+    background-color: hsl(27, 100%, 50%);
     color: white;
     padding: 15px 20px; /* Padding untuk mobile/default */
     font-size: 1.5em;
@@ -106,7 +106,7 @@ body {
 }
 
 .side-menu .menu-header {
-    background-color: #4CAF50;
+    background-color: hsl(27, 100%, 50%);
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -141,7 +141,7 @@ body {
 
 .side-menu .menu-items li i {
     margin-right: 15px;
-    color: #4CAF50;
+    color: hsl(27, 100%, 50%);
 }
 
 .side-menu .menu-items li:hover {
@@ -184,7 +184,7 @@ body {
 /* Ikon di dalam tombol utama */
 .side-menu .menu-items .has-submenu .menu-toggle-submenu i.fa-lightbulb {
     margin-right: 15px;
-    color: #4CAF50;
+    color: hsl(27, 100%, 50%);
     width: 20px;
     text-align: center;
 }
@@ -298,7 +298,7 @@ body {
 }
 
 .card h2, .card h3 {
-    color: #4CAF50;
+    color: hsl(27, 100%, 50%);
     margin-top: 0;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -329,7 +329,7 @@ body {
 
 .btn {
     display: inline-block;
-    background-color: #4CAF50;
+    background-color: hsl(27, 100%, 50%);
     color: white;
     padding: 10px 15px;
     border: none;
@@ -390,12 +390,12 @@ body {
 }
 
 .scan-option:hover {
-    border-color: #4CAF50;
+    border-color: hsl(27, 100%, 50%);
 }
 
 .scan-option i {
     font-size: 3em;
-    color: #4CAF50;
+    color: hsl(27, 100%, 50%);
     margin-bottom: 10px;
 }
 
@@ -514,7 +514,7 @@ body {
 
 /* --- GAYA BARU: HEADER SPESIFIK HALAMAN (DI DALAM KARTU) --- */
 .card .page-specific-header {
-    background-color: #4CAF50; /* Warna hijau */
+    background-color: hsl(27, 100%, 50%); /* Warna hijau */
     color: white;
     padding: 15px 20px;
     border-radius: 8px 8px 0 0; /* Bulatkan sudut atas agar sesuai kartu */
@@ -560,7 +560,7 @@ body {
 
 /*
  * Heading di dalam panel penjelasan akan secara otomatis
- * mewarisi gaya dari `.card h3` (warna hijau #4CAF50 dan border-bottom)
+ * mewarisi gaya dari `.card h3` (warna hijau hsl(27, 100%, 50%) dan border-bottom)
  * karena panel ini berada di dalam .dashboard-card.
  * Kita hanya perlu memastikan tidak ada margin atas yang berlebih.
 */
@@ -626,7 +626,7 @@ body {
 }
 
 /* Memberi warna aksen pada garis kiri sesuai tipe sampah */
-.handling-item:nth-child(1) { border-color: #4CAF50; } /* Organik */
+.handling-item:nth-child(1) { border-color: hsl(27, 100%, 50%); } /* Organik */
 .handling-item:nth-child(2) { border-color: #FFC107; } /* Anorganik */
 .handling-item:nth-child(3) { border-color: #F44336; } /* B3 */
 .handling-item:nth-child(4) { border-color: #9E9E9E; } /* Residu */
@@ -713,7 +713,7 @@ body {
 
 .member-item i {
     font-size: 1.5em;
-    color: #4CAF50; /* Warna hijau utama aplikasi */
+    color: hsl(27, 100%, 50%); /* Warna hijau utama aplikasi */
 }
 
 /* Ganti selector .member-item span yang ada dengan kode ini */
@@ -762,7 +762,7 @@ body {
         background-color: #f9f9f9;
         padding: 15px;
         border-radius: 8px;
-        border-left: 5px solid #4CAF50; /* Aksen warna hijau */
+        border-left: 5px solid hsl(27, 100%, 50%); /* Aksen warna hijau */
     }
 
     /* Gambar produk */
