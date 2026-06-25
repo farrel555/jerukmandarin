@@ -13,7 +13,7 @@ class ScanView extends BaseView {
         this.container.innerHTML = `
             <div class="card scan-card">
                 <div class="page-specific-header">
-                    <div class="page-header-logo"><i class="fas fa-recycle"></i> Jeruk Mandarin</div>
+                    <div class="page-header-logo"><i class="fa-solid fa-citrus" style="color: orange;"></i> Jeruk Mandarin</div>
                     <div class="page-header-title">Scan Jeruk Mandarin</div>
                 </div>
                 <h2>Pilih gambar Jeruk untuk di-scan</h2>
